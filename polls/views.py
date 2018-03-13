@@ -10,7 +10,7 @@ from .models import Questions, Choice
 def index(request):
     latest_question_list = Questions.objects.order_by('-pub_date')[:5]
     return render(request, 'polls/index.html', context={
-        'latest_question_list':latest_question_list,
+        'latest_question_list': latest_question_list,
     })
 
 
@@ -22,7 +22,10 @@ def detail(request, question_id):
 
 
 def result(request, question_id):
-    pass
+    question = get_list_or_404(Questions, pk=question_id)
+    return render(request, 'polls/result.html', context={
+        'question': question,
+    })
 
 
 def vote(request, question_id):
